@@ -1,0 +1,304 @@
+<ion-header>
+  <ion-toolbar color="primary" style="position: relative;" mode="ios">
+    <ion-item lines="none" color="primary">
+      <ion-title>ORDEN #{{order.id}}
+      </ion-title>
+      <ion-button (click)="dismiss()" slot="end" style="width: 40px;"
+        *ngIf="(order.status_order == 25 || order.status_order == 31 || order.status_order == 48 || !detailActive)">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+
+
+  </ion-toolbar>
+</ion-header>
+
+<div class="time" *ngIf="initTimerB && order.service_type_id != 3">
+  <div id="hms">{{timer_hour}}</div>
+</div>
+<!--- the order service type is time-->
+<ion-content *ngIf="order.service_type_id == 3">
+  <ng-container>
+    <ion-fab vertical="top" horizontal="start" slot="fixed" *ngIf="order.status_order !=25 && order.status_order !=31 "
+      (click)="cancel()">
+      <ion-fab-button color="danger">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-fab vertical="top" horizontal="end" slot="fixed" (click)="viewEvent(order)">
+      <ion-fab-button color="primary">
+        <ion-icon name="chatbox-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ng-container>
+
+  <div style="position: absolute;
+  top:0px;left: 0;right: 0;margin: auto;width: 80%;height: 400px;">
+    <h2 class="ion-text-center" style="text-align: center;
+  color: #2dd36f;
+  font-weight: bold;">En Servicio</h2>
+    <p class="ion-padding ion-text-center" style=" font-size: 1em;
+    font-weight: 900;
+    padding: 0;
+    margin-top: 0;
+"> {{initTime | date:'shortTime'}} - {{detailActive.departure_time}}</p>
+
+  </div>
+</ion-content>
+<!--- the order service type is different fron time-->
+<ion-content [fullscreen]="true" *ngIf="order.service_type_id != 3">
+  <ng-container>
+    <ion-fab vertical="top" horizontal="start" slot="fixed" *ngIf="order.status_order !=25 && order.status_order !=31  "
+      (click)="cancel()">
+      <ion-fab-button color="danger">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-fab vertical="top" horizontal="end" slot="fixed" style="right: 75px;"
+      *ngIf="order.status_order !=25 && order.status_order !=31">
+      <ion-fab-button color="warning">
+        <ion-img src="assets/imgs/support-icon.jpg" style="width: 35px;"></ion-img>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-fab vertical="top" horizontal="end" slot="fixed" (click)="viewEvent(order)">
+      <ion-fab-button color="primary">
+        <ion-icon name="chatbox-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ng-container>
+
+
+
+  <div #map id="map" style="width: 100%;height: 100%;"></div>
+
+</ion-content>
+<!--- Details of the service-->
+<ion-footer [translucent]="true">
+  <ng-container *ngIf="order.service_type_id != 3; else elseTemplate3">
+    <ion-card style="position: absolute;
+  bottom: 64px;
+  left: 0;
+  right: 0;
+  margin: auto 10%;
+  padding: -5px;
+  border-radius: 10px;" *ngIf="view_more"
+      [ngClass]="{'min-he': (order.status_order == 25 && order.status_order == 31)}">
+      <ion-card-content style="padding: 0;">
+        <div>
+          <ion-toolbar *ngIf="detailActive ? order.status_order == 31 ? false : true: false">
+            <ion-item (click)="callANumber(detailActive.contact_phone)" lines="none">
+              <ion-avatar slot="start">
+                <ion-img src="assets/imgs/avatar.svg"></ion-img>
+              </ion-avatar>
+              <ion-label>
+                <p class=" black-color-text">{{detailActive.contact_name}} </p>
+                <p class="grey-color-text">Duración: {{ duration_text }}</p>
+              </ion-label>
+
+              <ion-icon name="call-outline" slot="end" color="success" size="large"></ion-icon>
+            </ion-item>
+
+
+          </ion-toolbar>
+          <div style="max-height: 500px;overflow: auto;transition: height 2s;"
+            [ngClass]="{'min-he': order.status_order==25 || order.status_order == 31}">
+            <ion-title class="ion-text-center" *ngIf="order.status_order==25 || order.status_order == 31 ">Direcciones
+            </ion-title>
+            <ion-button expand="block"
+              [color]="(!detailActive || detailActive.status == 25) || detailActive && detailActive.status == 48  ? 'medium': 'success'"
+              (click)="end(detailActive)"
+              *ngIf="detailActive && (order.status_order !=25 && order.status_order !=31) && order.service_type_id != 3">
+              <ng-container *ngIf="detailActive.loading; else elseTemplate">
+                <p class="ion-text-center ion-no-padding">{{detailActive.text_loading}}<ion-spinner name="crescent">
+                  </ion-spinner>
+                </p>
+              </ng-container>
+              <ng-template #elseTemplate>
+
+                {{!detailActive || detailActive.status == 25 ? 'FINALIZADO': (detailActive.ended) ? 'FINALIZAR TAREA' :
+                detailActive && detailActive.status == 48 ? 'NO EFECTIVO': 'YA LLEGUÉ'}}
+              </ng-template>
+
+            </ion-button>
+            <ng-container *ngIf="(order.status_order != 25 && order.status_order != 31);else elseT ">
+              <ion-card style="padding: 0;
+            --background: rgb(239 238 244);
+            border-radius: 20px;
+            box-shadow: none;" *ngIf="detailActive">
+                <ion-card-content class="row">
+                  <div style="width:10%">
+                    <ion-badge color="primary">{{findLetter() | titlecase}}</ion-badge>
+                  </div>
+                  <div style="width: 70%;">
+                    <p class="ion-text-justify black-color-text">{{detailActive.address}}</p>
+                    <p class="ion-text-justify grey-color-text">{{detailActive.description}}</p>
+                    <p class="ion-text-justify black-color-text" *ngIf="order.zapp_store_order==1" style="font-weight: bold;
+                  text-transform: uppercase;
+              ">debes retirar la orden {{order.wc_order_id}}</p>
+                  </div>
+                </ion-card-content>
+                <ng-container *ngIf="order.service_type_id == 3">
+                  <p style="padding: 10px;">Día : {{order.date}}</p>
+                  <p class="ion-padding">{{initTime | date:'shortTime'}} - {{detailActive.departure_time}}</p>
+                  <p style="padding: 10px;">Horas : {{detailActive.number_of_hours}}</p>
+                </ng-container>
+                <p class="grey-color-text ion-padding" *ngIf="order.service_type_id != 3" style="padding-right: 0;
+              padding-bottom: 0;">Cobrar : <ion-label class="black-color-text" style="font-weight: bold;">
+                    <!--WHEN PAYMENT METHOD IS CASH -->
+                    <ng-container>
+
+                    </ng-container>
+
+                    {{(order.payment_method == 'efectivo' ? this.order.zapp_store_order ==1 ?
+                    this.order.total_zapp_store:
+                    order.total: order.payment_method == 'masivo'?(detailActive.declared_value || 0 ) :0) |
+                    currency:undefined:'symbol':'3.0'}}
+                  </ion-label>
+                </p>
+                <p class="grey-color-text ion-padding" *ngIf="detailActive.total_charge > 0" style="padding-top: 0;">
+                  Tiempo de espera : <ion-label class="black-color-text" style="font-weight: bold;">
+                    {{detailActive.total_charge | currency:undefined:'symbol':'3.0' }}</ion-label>
+              </ion-card>
+              <ng-template #name>
+                <p class="grey-color-text ion-text-justify">No hay mas direcciones , puedes finalizar la orden</p>
+              </ng-template>
+
+            </ng-container>
+            <ng-template #elseT>
+              <div style="max-height: 227px;
+            min-height: 350px;">
+                <ion-card *ngFor="let item of order.details; let i=index">
+                  <ion-card-content class="row">
+                    <div style="width:10%">
+                      <ion-badge color="primary">{{az_arr[i] | titlecase}}</ion-badge>
+                    </div>
+                    <div style="width: 70%;">
+                      <p class="ion-text-justify black-color-text">{{item.address}}</p>
+                      <p class="ion-text-justify grey-color-text">{{item.description}}</p>
+                      <ng-container *ngIf="order.diligence==1">
+                        <div>
+                          <p class="ion-text-justify black-color-text">Tiempo de espera:{{item.wait_time}} minutos</p>
+                          <p class="ion-text-justify grey-color-text">Total:{{item.surplus_money}}</p>
+                        </div>
+                      </ng-container>
+                    </div>
+
+
+
+                  </ion-card-content>
+                  <ion-button expand="block" color="medium">
+
+                    {{item.status==25 ? 'FINALIZADO' : item.status==48 ?'NO EFECTIVO':'CANCELADO'}}
+                  </ion-button>
+                </ion-card>
+              </div>
+
+            </ng-template>
+
+          </div>
+        </div>
+
+
+
+      </ion-card-content>
+
+    </ion-card>
+    <ion-button class="ion-margin-top" style="margin: auto;width: 80%;position: absolute;bottom: 15px; right: 0;
+  left: 0;" color="primary" (click)="viewMore()" *ngIf="detailActive || order.status_order == 25" expand="block">
+      {{view_more ? 'Ocultar detalle' : 'Ver detalle'}}</ion-button>
+  </ng-container>
+  <ng-template #elseTemplate3>
+    <ion-card class="card-absolute-normal white-gray-background" [ngClass]="{'min-he': order.status_order == 25}">
+      <div class="view-detail" (click)="viewMore()">
+        Información del servicio
+      </div>        
+      <ion-card-content class="ion-no-padding" *ngIf="view_more">
+        <div >
+          
+          <ion-toolbar
+            *ngIf="detailActive ? order.status_order == 31 ? false : true: false"
+            class="toolbar">
+            <ion-item lines="none">
+              <ion-avatar slot="start">
+                <ion-img src="assets/imgs/avatar.svg"
+                  ></ion-img>
+              </ion-avatar>
+              <ion-label>
+                <p class=" black-color-text" style="font-family: 'Gilroy-ExtraBold' !important;">{{detailActive.contact_name}}</p>
+              </ion-label>
+
+              <ion-icon style="display: none;" name="call-outline" (click)="callANumber(this.order.drivers[0].driver_phone)" slot="end"
+                color="success" size="large"></ion-icon>
+                <div [class]="'status in-process'" >
+                  En servicio
+                </div>
+            </ion-item>
+            
+
+          </ion-toolbar>
+          <div   style="min-height: 200px;
+          max-height: 300px;">
+
+            <div style="    max-height: 235px;
+            overflow-y: scroll;">
+              <ion-card *ngFor="let item of order.details; let i=index" style="    border-radius: 20px;
+              padding: 5px;
+              padding-left: 10px;
+              padding-right: 10px;
+              margin-top: 5px;
+              box-shadow: none;">
+                <ion-card-content class="" style="padding-top: 3px;
+                padding-bottom: 3px;">
+                   <h2 class="ion-text-center" style="width: 100%;">Horas {{item.number_of_hours}}</h2>
+                
+                   <p style="width: 100%;">Dirección de inicio</p>
+                   <p style=" font-size: 0.8em;width: 100%;font-weight: bold;"><span style="color: black;
+                     font-weight: 900;
+                     font-family: 'Gilroy-ExtraBold' !important;">
+                     {{item.address}}
+                     </span>
+                   </p>
+                   <p style="font-size: 0.8em;width: 100%;">Hora de inicio:
+                     <span style="color: black;
+                     font-weight: 900;
+                     font-family: 'Gilroy-ExtraBold' !important;">
+                     {{item.start_time}}
+                     </span>
+                      
+                     </p>
+                   <p style="font-size: 0.8em;width: 100%;">Hora de finalización: 
+                     <span style="color: black;
+                     font-weight: 900;
+                     font-family: 'Gilroy-ExtraBold' !important;">
+                     {{item.departure_time}}
+                     </span>
+                   </p>
+                   <ng-container >
+                     <div class="time" *ngIf="item.timer" style="width: 100%;
+                     text-align: center;
+                     color: black;
+                     font-weight: 900;
+                     font-family: 'Gilroy-ExtraBold' !important;" >
+                       <span id="hms" style="color: black;
+                       font-weight: 900;
+                       font-family: 'Gilroy-ExtraBold' !important;
+                   ">{{item.timer.hours >9? item.timer.hours:'0'+item.timer.hours}}:{{item.timer.minutes >9? item.timer.minutes:'0'+item.timer.minutes}}:{{item.timer.seconds >9? item.timer.seconds:'0'+item.timer.seconds}}</span>
+                     </div>
+                     <br>
+                     
+                   </ng-container>
+
+                </ion-card-content>
+
+              </ion-card>
+            </div>
+            
+          </div>
+        </div>
+      </ion-card-content>
+
+    </ion-card>
+  </ng-template>
+
+
+</ion-footer>

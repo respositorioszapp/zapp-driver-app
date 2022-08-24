@@ -1,0 +1,7 @@
+{
+  "name": "zapp-driver-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

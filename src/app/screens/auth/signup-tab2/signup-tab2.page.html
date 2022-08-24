@@ -1,0 +1,67 @@
+<h4 style="text-align: center;">Registro vehículo</h4>
+<form [formGroup]="vehicle_information" (submit)="save()" novalidate>
+  <ion-item lines="none" class="input-text ion-margin-top">
+    <ion-select placeholder="Tipo de vehículo" formControlName="vehicle_type" style="display: contents;" required [selectedText]="transpot_type.name">
+      <ion-select-option *ngFor="let item of transport_types" [value]="item.id">{{item.name }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item lines="none" class="danger-color-text"
+    *ngIf="controls.vehicle_type.dirty && controls.vehicle_type.touched && controls.vehicle_type.errors">
+    <ion-icon name="alert-circle" slot="start" class="danger-color-text"></ion-icon>
+    <ion-label *ngIf="controls.vehicle_type.errors.required">El tipo de vehículo es requerida</ion-label>
+  </ion-item>
+  <ion-item lines="none" class="input-text ion-margin-top">
+    <ion-input placeholder="Placa" formControlName="plate" required ></ion-input>
+  </ion-item>
+  <ion-item lines="none" class="danger-color-text" *ngIf="controls.plate.dirty && controls.plate.touched && controls.plate.errors">
+    <ion-icon name="alert-circle" slot="start" class="danger-color-text"></ion-icon>
+    <ion-label *ngIf="controls.plate.errors.required">La placa es requerido</ion-label>
+    <ion-label *ngIf="controls.plate.errors.minlength || controls.plate.errors.maxlength">La placa debe contener 6
+      caracteres</ion-label>
+  </ion-item>
+  <ion-item lines="none" class="input-text ion-margin-top">
+    <ion-input placeholder="Marca" formControlName="brand" required></ion-input>
+  </ion-item>
+  <ion-item lines="none" class="danger-color-text" *ngIf="controls.brand.dirty && controls.brand.touched && controls.brand.errors">
+    <ion-icon name="alert-circle" slot="start" class="danger-color-text"></ion-icon>
+    <ion-label *ngIf="controls.brand.errors.required">La marca es requerido</ion-label>
+  </ion-item>
+  <ion-item lines="none" class="input-text ion-margin-top">
+    <ion-input placeholder="Modelo" formControlName="model" required></ion-input>
+  </ion-item>
+  <ion-item lines="none" class="danger-color-text" *ngIf="controls.model.dirty && controls.model.touched && controls.model.errors">
+    <ion-icon name="alert-circle" slot="start" class="danger-color-text"></ion-icon>
+    <ion-label *ngIf="controls.model.errors.required">El modelo es requerido</ion-label>
+  </ion-item>
+
+  <ion-item lines="none" class="input-text ion-margin-top">
+    <ion-select placeholder="Año" formControlName="year" style="display: contents;">
+      <ion-select-option *ngFor="let item of common.years" [value]="item">{{item }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item lines="none" class="danger-color-text" *ngIf="controls.year.dirty && controls.year.touched && controls.year.errors">
+    <ion-icon name="alert-circle" slot="start" class="danger-color-text"></ion-icon>
+    <ion-label *ngIf="controls.year.errors.required">El año es requerida</ion-label>
+  </ion-item>
+
+  <ion-item lines="none" class="input-text ion-margin-top">
+    <ion-select placeholder="Color" formControlName="color" style="display: contents;" required>
+      <ion-select-option *ngFor="let item of common.colors" [value]="item">{{item }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item lines="none" class="danger-color-text" *ngIf="controls.color.dirty && controls.color.touched && controls.color.errors">
+    <ion-icon name="alert-circle" slot="start" class="danger-color-text"></ion-icon>
+    <ion-label *ngIf="controls.color.errors.required">El color es requerida</ion-label>
+  </ion-item>
+  <a href="https://zapplogistica.com/politicas/" class="ion-margin-top ion-text-center" target="_blank" rel="noopener noreferrer" style="font-size: 1.2em;display:block;color: #1c024b;" color="primary">Ver términos y condiciones</a>
+  <ion-item lines="none">
+    
+    <ion-label class="ion-text-justify">Aceptar los términos y condiciones</ion-label>
+    <ion-checkbox slot="start" formControlName="terms" style=" margin-right: 10px;" ></ion-checkbox>
+  </ion-item>
+  
+  <!-- -->
+  <ion-button type="submit" expand="block" mode="ios" color="primary" >
+    ENVIAR
+  </ion-button>
+</form>

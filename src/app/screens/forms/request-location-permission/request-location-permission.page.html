@@ -1,0 +1,28 @@
+<ion-content>
+  <div class="advice">
+    <h4 class="ion-text-center">¡Aviso importante!</h4>
+    <p class="ion-text-center grey-color">Esta aplicación recopila datos de ubicación para
+      habilitar el seguimiento del mensajero en tiempo real, incluso cuando la aplicación está cerrada o no está en uso.
+      Para un correcto funcionamiento en dispositivos Android 10 o superior, recomendamos tener la ubicación encendida con los permisos de ubicación todo el tiempo e ignorando la optimización de la batería
+    </p>
+  </div>
+  <div class="ion-text-center terms-and-conditions">
+
+    <p class="grey-color">Al hacer clic en "Aceptar", aceptas nuestras
+      <a href="https://www.zapplogistica.com/privacy" class="ion-margin-top ion-text-center" target="_blank"
+        rel="noopener noreferrer"  color="primary">condiciones</a>, la <a
+        href="https://www.zapplogistica.com/privacy" class="ion-margin-top ion-text-center" target="_blank"
+        rel="noopener noreferrer"  color="primary">Política de datos</a> y la <a
+        href="https://www.zapplogistica.com/privacy" class="ion-margin-top ion-text-center" target="_blank"
+        rel="noopener noreferrer"  color="primary">Política de cookies</a>.
+    </p>
+
+  </div>
+
+  <img src="assets/imgs/express-courier-2.png" class="img-courrier" alt="" >
+  <ion-button expand="full" class="button denie" (click)="denie()">
+    DENEGAR
+  </ion-button>
+  <ion-button expand="full" class="button accept" (click)="accept()">Aceptar</ion-button>
+  <!-- <ion-button expand="block" >Aceptar</ion-button> -->
+</ion-content>

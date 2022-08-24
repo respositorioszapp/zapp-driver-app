@@ -1,0 +1,166 @@
+<ion-content color="warning">
+  <ion-card style="padding: 0;min-height: 350px;">
+    <ion-card-content style="padding: 0">
+      <ion-title class="ion-text-center">Historial</ion-title>
+      <ng-container *ngIf="orders.length > 0; else elseTemplateOrder">
+        <ion-card *ngFor="let item of orders" style="margin-bottom: 10px;" >
+          <ion-card-content (click)="viewDetail(item)">
+
+            <div style="width:100%;display: flex;">
+              <div class="w-50">
+                ORDEN #{{item.id}}
+              </div>
+              <div style="width: 50%;text-align:right">
+                
+                {{ item.date | dateLocal | titlecase }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="w-50">
+                <p class=" ">Tipo de Servicio :  </p>
+              </div>
+              <div style="width: 50%;">
+                <strong>{{item.service_type}}</strong>
+                
+              </div>
+            </div>
+            <div class="row">
+              <div class="w-50">
+                <p class=" "> Ciudad : </p>
+                
+              </div>
+              <div style="width: 50%;   ">
+                <strong>{{item.city}}</strong>
+                
+              </div>
+            </div>
+            <div class="row">
+              <div class="w-50">
+                <p class=""> Cantidad : </p>
+              </div>
+              <div class="w-50">
+                <strong>{{item.details.length}}</strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="w-50">
+                <p class=""> Recorrido : </p>
+              </div>
+              <div style="width: 50%; ">
+                <strong>{{item.round_trip ==1 ? 'Ida y Vuelta': 'Ida'}}</strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="w-50">
+                <p class=""> Valor declarado : </p>
+              </div>
+              <div class="w-50">
+                <strong>{{item.declared_value}}</strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="w-50">
+                <p class=""> Tipo de accesorio : </p>
+              </div>
+              <div class="w-50">
+                <strong>{{item.accessory_type}}</strong>
+              </div>
+            </div>
+            
+            <div class="row" *ngIf="item.service_type_id == 3">
+              <div class="w-50">
+                <p class=""> Número de horas : </p>
+              </div>
+              <div style="width: 50%;    ">
+                <strong>{{item.number_hours}}</strong>
+              </div>
+            </div>
+            <ion-item lines="none">
+              <ion-button fill="clear" size="small" slot="start"   style=""  >
+                <ng-container *ngIf="item.score_service; else elseTemplate">
+                  {{item.score_service ? item.score_service: 0 }}<ion-icon name="star" class="text-yellow"  ></ion-icon>  
+                </ng-container>
+                <ng-template #elseTemplate>
+                  Sin calificar <ion-icon name="star" ></ion-icon>   
+                </ng-template>
+                
+                 
+              </ion-button>
+              <ion-button size="small" [class]="store_states[item.status_order].class" slot="end">
+                {{store_states[item.status_order].message}}
+              </ion-button>
+            </ion-item>
+            
+            
+          </ion-card-content>
+         
+        </ion-card>
+        <ion-card *ngIf="loading">
+          <ion-card-content >
+
+            <div style="width:100%;display: flex;">
+              <div class="w-50">
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </div>
+              <div style="width: 50%;text-align:right">
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </div>
+            </div>
+            <div style="display: flex;margin-top: 5px;
+            margin-bottom: 5px;">
+              <div class="w-50">
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </div>
+              <div style="width: 50%; margin-left: 11px;">
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </div>
+            </div>
+            <div style="display: flex;margin-top: 5px;
+            margin-bottom: 5px;">
+              <div class="w-50">
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </div>
+              <div style="width: 50%;    margin-left: 11px;">
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </div>
+            </div>
+            <div style="display: flex;margin-top: 5px;
+            margin-bottom: 5px;">
+              <div class="w-50">
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </div>
+              <div style="width: 50%;    margin-left: 11px;">
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </div>
+            </div>
+            
+          </ion-card-content>
+        </ion-card>
+        <ion-infinite-scroll  (ionInfinite)="loadData($event)" >
+          <ion-infinite-scroll-content
+          loadingSpinner="bubbles">
+          </ion-infinite-scroll-content>
+          
+        </ion-infinite-scroll>
+        
+      </ng-container>
+      <ng-template #elseTemplateOrder>
+        <div style="position: relative;height: 200px;" *ngIf="orders.length == 0;">
+          <h3 class="ion-text-center " style="    font-size: 1.5em;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        text-align: center;
+        margin: auto;
+        height: 40px;
+    ">No ha realizado ningún viaje</h3>
+        </div>
+
+      </ng-template>
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

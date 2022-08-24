@@ -1,0 +1,16 @@
+{
+  "appId": "com.zapp.driver.app",
+  "appName": "zapp-driver-app",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 7000
+    },
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
+    }
+  },
+  "cordova": {}
+}

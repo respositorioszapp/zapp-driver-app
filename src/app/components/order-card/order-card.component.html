@@ -1,0 +1,159 @@
+<div class="ion-text-center" style="padding: 1px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background: #49158c;
+  width: 95%;
+  margin: auto;
+  color: white;
+  font-weight: 900;
+  ">
+    <h3 class="ion-text-center" style="margin-top: 2px;
+    margin-bottom: 2px;
+    font-weight: 900;">{{title}}</h3>
+  </div>
+  <ion-card style="padding: 0;min-height: 320px;margin-top: 0; border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;" mode="ios">
+    
+    <ion-card-content style="padding: 0;">
+      <div style="justify-content: center;
+    margin: auto;
+    width: 50%;">
+       
+      </div>
+      <ng-container *ngIf="available == 0; else elseTemplate">
+        <div style="justify-content: center;
+    margin: auto;
+    width: 70%;">
+
+          <div class="ion-text-center" style="margin-top:60px;">
+            <img src="assets/imgs/aqua-driver.png" />
+            <h4 class="ion-text-center">
+              Toca el botón para ponerte disponible y recibir servicios
+            </h4>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <ng-container *ngIf="filter().length > 0; else elseTemplateOrder">
+          <ion-card style="--background: #f2f2f2;" *ngFor="let item of filter()" (click)="viewDetail(item, near)">
+            <ion-card-header style="padding: 0;">
+              <ion-grid style="    padding: 0;">
+                <ion-row>
+                  <ion-col size="3" style="padding: 0;">
+                    <div style="font-size: 0.7em;
+                    /* height: 100%; */
+                    padding: 10px;
+                    padding-left: 5px;
+                    font-weight: 900;
+                    background: #49158c;
+                    color: white;
+                    clip-path: polygon;
+                    clip-path: polygon(0 0, 100% 0, 79% 100%, 0% 100%);">
+                      Orden # {{item.id}}
+                    </div>
+                  </ion-col>
+                  <ion-col size="9" style="padding: 0;">
+                    <h3>Tipo de servicio:
+                      <span style="    font-size: 1.1em;
+                      color: black;
+                      font-weight: 900;" *ngIf="item.diligence==0">{{item.service_type}}</span>
+                      <span style="    font-size: 1.1em;
+                      color: black;
+                      font-weight: 900;" *ngIf="item.diligence==1">Diligencia</span>
+                    </h3>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ng-container *ngIf="item.service_type_id==2">
+                    <ion-col [size]="near? 6:12">
+                      <p>Recorrido: <span class="black-color-text" style="font-weight: 900;"><strong>{{item.round_trip ==1 ? 'Ida y Vuelta': 'Ida'}}</strong></span></p>
+                      <p>Fecha: <span class="black-color-text" style="font-weight: 900;"><strong>{{item.date}}</strong></span></p>
+                      <p>Cantidad: <span class="black-color-text" style="font-weight: 900;"><strong>{{item.details.length}} direcciones</strong></span></p>
+                      <p *ngFor="let itemAddress of item.details;let index=i">Dirección {{index}}: <span class="black-color-text" style="font-weight: 900;"><strong>{{itemAddress.address}}</strong></span></p>
+                      
+                      <p>Método de pago: <span class="black-color-text" style="font-weight: 900;"><strong>{{item.payment_method}}</strong></span></p>
+                    </ion-col>
+                  </ng-container>
+                  <ng-container *ngIf="item.service_type_id==1">
+                    <ion-col [size]="near? 6:12">
+                      <p>Recorrido: <span class="black-color-text" style="font-weight: 900;"><strong>{{item.round_trip ==1 ? 'Ida y Vuelta': 'Ida'}}</strong></span></p>
+                      <p>Fecha: <span class="black-color-text" style="font-weight: 900;"><strong>{{item.date}}</strong></span></p>
+                      <p>Método de pago: <span class="black-color-text" style="font-weight: 900;"><strong>{{item.payment_method}}</strong></span></p>
+                      <p>Dirección A: <span class="black-color-text" style="font-weight: 900;"><strong>{{item.details[0].address}}</strong></span></p>
+                      <p>Dirección B: <span class="black-color-text" style="font-weight: 900;"><strong>{{item.details[1].address}}</strong></span></p> 
+                    </ion-col>
+                  </ng-container>
+
+                  <ng-container *ngIf="item.service_type_id==3">
+                    <ion-col [size]="near? 6:12">
+                      <p>Recorrido: <span class="black-color-text" style="font-weight: 900;"><strong>{{item.round_trip ==1 ? 'Ida y Vuelta': 'Ida'}}</strong></span></p>
+                      <p>Fecha: <span class="black-color-text" style="font-weight: 900;"><strong>{{item.date}}</strong></span></p>
+                      <p *ngFor="let itemAddress of item.details;let index=i">Dirección {{index}}: <span class="black-color-text" style="font-weight: 900;"><strong>{{itemAddress.address}}</strong></span></p>
+                      <p>Número de horas: <span class="black-color-text" style="font-weight: 900;"><strong>{{item.number_hours}}</strong></span></p>
+                      <p>Horario: <span class="black-color-text" style="font-weight: 900;"><strong> {{item.details[0].start_time }} - {{item.details[0].departure_time}}</strong></span></p>
+                      
+                      <p>Método de pago: <span class="black-color-text" style="font-weight: 900;"><strong>{{item.payment_method}}</strong></span></p>
+                    </ion-col>
+                  </ng-container>
+                  
+                  
+                  <ion-col size="6" *ngIf="near">
+                    <ion-button color="primary" round="true" style="    --border-radius: 20px;
+                    height: 30px;
+                    min-width: 100%;" (click)="accept(item)">
+                      Aceptar
+                    </ion-button>
+                    <ion-button color="danger" round="true" style="    --border-radius: 20px;
+                    height: 30px;
+                    min-width: 100%;" (click)="reject(item)">
+                      Cancelar
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="item.status_order==23||item.status_order==24">
+                  <ion-col size="12">
+                    <div style="display: flex;justify-content: center;">
+                      <ion-button>
+                        {{item.status_order==23?'Iniciar':'Continuar'}}
+                      </ion-button>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-header>
+          </ion-card>
+          
+        </ng-container>
+        <ng-template #elseTemplateOrder>
+          <div style="position: relative;height: 200px;" *ngIf="spinner">
+            <h3 class="ion-text-center " style="    font-size: 1.5em;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                left: 0;
+                text-align: center;
+                margin: auto;
+                height: 40px;
+            ">Cargando<br><ion-spinner name="dots"></ion-spinner> </h3>
+            
+          </div>
+          <div style="position: relative;height: 200px;" *ngIf="!spinner && orders.length == 0;">
+            <h3 class="ion-text-center " style="    font-size: 1.5em;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          left: 0;
+          text-align: center;
+          margin: auto;
+          height: 40px;
+      ">No tiene ordenes asignadas</h3>
+          </div>
+
+        </ng-template>
+        
+        
+      </ng-template>
+    </ion-card-content>
+  </ion-card>

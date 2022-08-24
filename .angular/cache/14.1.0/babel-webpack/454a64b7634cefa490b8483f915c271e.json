@@ -1,0 +1,1 @@
+{"ast":null,"code":"export var MimeTypes = /*#__PURE__*/(() => {\n  (function (MimeTypes) {\n    MimeTypes[\"Excel\"] = \"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\";\n  })(MimeTypes || (MimeTypes = {}));\n\n  return MimeTypes;\n})();","map":null,"metadata":{},"sourceType":"module"}

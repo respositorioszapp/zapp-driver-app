@@ -1,0 +1,89 @@
+<ion-card  style="margin-bottom: 10px;" >
+  <ion-card-content >
+
+    <div style="width:100%;display: flex;">
+      <div style="width: 50%;text-align:right">
+        {{ order.date | dateLocal | titlecase }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="w-50">
+        <p class=" ">Tipo de Servicio :  </p>
+      </div>
+      <div style="width: 50%;">
+        <strong>{{order.service_type}}</strong>
+        
+      </div>
+    </div>
+    <div class="row">
+      <div class="w-50">
+        <p class=" "> Ciudad : </p>
+        
+      </div>
+      <div style="width: 50%;   ">
+        <strong>{{order.city}}</strong>
+        
+      </div>
+    </div>
+    <div class="row">
+      <div class="w-50">
+        <p class=""> Cantidad : </p>
+      </div>
+      <div class="w-50">
+        <strong>{{order.details.length}}</strong>
+      </div>
+    </div>
+    <div class="row">
+      <div class="w-50">
+        <p class=""> Recorrido : </p>
+      </div>
+      <div style="width: 50%; ">
+        <strong>{{order.round_trip ==1 ? 'Ida y Vuelta': 'Ida'}}</strong>
+      </div>
+    </div>
+    <div class="row">
+      <div class="w-50">
+        <p class=""> Valor declarado : </p>
+      </div>
+      <div class="w-50">
+        <strong>{{order.declared_value}}</strong>
+      </div>
+    </div>
+    <div class="row">
+      <div class="w-50">
+        <p class=""> Tipo de accesorio : </p>
+      </div>
+      <div class="w-50">
+        <strong>{{order.accesory}}</strong>
+      </div>
+    </div>
+    
+    <div class="row" *ngIf="order.service_type_id == 3">
+      <div class="w-50">
+        <p class=""> Número de horas : </p>
+      </div>
+      <div style="width: 50%;    ">
+        <strong>{{order.number_hours}}</strong>
+      </div>
+      <div class="w-50">
+        <p class=""> Hora de entrada : </p>
+      </div>
+      <div style="width: 50%;    ">
+        <strong>{{order.detail ? order.detail[0].start_time : order.details[0].start_time}}</strong>
+      </div>
+      <div class="w-50">
+        <p class=""> Hora de salida : </p>
+      </div>
+      <div style="width: 50%;    ">
+        <strong>{{order.detail ? order.detail[0].departure_time : order.details[0].departure_time}}</strong>
+      </div>
+    </div>
+    <div class="row" style="justify-content:center" *ngIf="order.status_order != 25 && show">
+      <ion-button mode="ios" color="primary" size="small"
+         class="ion-margin-top ion-text-center" style="margin: auto;">
+        Iniciar
+      </ion-button>
+    </div>
+    
+  </ion-card-content>
+</ion-card>

@@ -1,0 +1,41 @@
+<ion-content color="warning" class="ion-padding">
+  <div class="ion-text-center margin-top-15vh ion-padding-bottom">
+    <img src="assets/imgs/logo-morado.png" width="180">
+  </div>
+  <ion-card class="border-radius">
+    <ion-card-content>
+      <form  [formGroup]="loginData" (submit)="send()" novalidate>
+        <ion-item lines="none" class="input-text ion-margin-top">
+          <ion-icon name="person-circle" slot="start"></ion-icon>
+          <ion-input placeholder="Email" formControlName="email" required></ion-input>
+        </ion-item>
+        <ion-item lines="none" class="danger-color-text" *ngIf=" controls.email.dirty && controls.email.touched && controls.email.errors">
+          <ion-icon name="alert-circle" slot="start" class="danger-color-text"></ion-icon>
+          <ion-label *ngIf="controls.email.errors.required">Email es requerido</ion-label>
+          <ion-label *ngIf="controls.email.errors.email">Debe ser un email válido</ion-label>
+        </ion-item>
+        <ion-item lines="none" class="input-text ion-margin-top ion-margin-bottom">
+          <ion-icon name="lock-closed" slot="start"  ></ion-icon>
+          <ion-input [type]="view ?'text': 'password'" placeholder="Password" formControlName="password" required ></ion-input>
+          <ion-icon [name]="view ? 'eye-outline': 'eye-off-outline'" slot="end" (click)="setView()"></ion-icon>
+        </ion-item>
+        <ion-item lines="none" class="danger-color-text" *ngIf="controls.password.dirty && controls.password.touched && controls.password.errors">
+          <ion-icon name="alert-circle" slot="start" class="danger-color-text" ></ion-icon>
+          <ion-label *ngIf="controls.password.errors.required">La contraseña es requerida</ion-label>
+          <ion-label *ngIf="controls.password.errors.minlength || controls.password.errors.maxlength">La contraseña debe ser
+            de 8 a 16 caracteres</ion-label>
+        </ion-item>
+        
+        <ion-button fill="clear" expand="block" mode="ios" class="grey-color" routerLink="/signup/forgotpassword">
+          ¿Olvidaste tu contraseña?
+        </ion-button>
+        <ion-button type="submit"  expand="block" mode="ios" color="primary"  class="ion-margin-bottom">
+          INICIAR SESION
+        </ion-button>
+        <ion-button fill="outline" color="primary" expand="block" mode="ios" class="grey-color" routerLink="/signup">
+          REGÍSTRARSE
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

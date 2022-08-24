@@ -1,0 +1,21 @@
+<ion-content color="warning" class="ion-padding">
+  <ion-button fill="clear" (click) ="back()" style="position: absolute;
+  left: 0px;
+  padding: 10px;" >
+    <ion-icon name="arrow-back-outline"   slot="icon-only"  ></ion-icon>
+  </ion-button>
+  <div style="position: relative;">
+    <div class="ion-text-center margin-top-15vh ion-padding-bottom" style="width: 60%;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;">
+      <img src="assets/imgs/logo-morado.png" width="100">
+    </div>
+  </div>
+  <ion-card class="border-radius" style="margin-top: 50px;">
+    <ion-card-content>
+      <router-outlet></router-outlet>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

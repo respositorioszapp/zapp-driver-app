@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-toolbar color="primary" style="position: relative;">
+    <ion-title style="position: absolute; left: 5px;bottom:14px">Mapa
+    </ion-title>
+    <ion-button (click)="dismiss()" style="position: absolute; right: 5px;bottom:5px">
+      <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div #map id="map" style="width: 100%;height: 100%;"></div>
+</ion-content>

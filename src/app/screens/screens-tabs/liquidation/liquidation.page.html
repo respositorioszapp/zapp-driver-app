@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Liquidación</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="row justify-content-center">
+    <div class="col-sm-6 ion-text-center w-50" style="padding: 0 10px" >
+      <h4 class="ion-text-center">Fecha Inicio
+      </h4>
+      <ion-item class="input-text date" (click)="init.open()">
+        <label  >{{min_date | date:"dd/MM/yyyy"}} </label>
+        <ion-datetime displayFormat="DD/MM/YYYY" class="hidden" #init cancelText="Cancelar" doneText="Guardar" mode="ios"
+          [max]="max_date" [(ngModel)]="min_date" ></ion-datetime>
+        <ion-button  fill="clear" slot="end" class="ion-no-padding ion-no-margin"    >
+          <ion-icon name="calendar-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </div>
+    <div class="col-sm-6 ion-text-center w-50" style="padding: 0 10px">
+      <h4 class="ion-text-center">Fecha Fin
+      </h4>
+      <ion-item class="input-text date" (click)="end.open()">
+        <label  >{{max_date | date:"dd/MM/yyyy" }} </label>
+        <ion-datetime class="input-text hidden" displayFormat="DD/MM/YYYY" #end cancelText="Cancelar" doneText="Guardar" mode="ios"
+          [(ngModel)]="max_date" ></ion-datetime>
+        <ion-button  fill="clear" slot="end"  class="ion-no-padding ion-no-margin" >
+          <ion-icon name="calendar-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+    </div>
+  </div>
+  <div class="row ion-text-center">
+    <ion-button (click)="download()" style="text-align: center;
+    margin: 10px auto;">Descargar <ion-icon name="arrow-down-circle-outline"></ion-icon></ion-button>
+  </div>
+  
+</ion-content>

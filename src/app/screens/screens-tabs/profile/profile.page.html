@@ -1,0 +1,117 @@
+<!--<ion-header>
+  <ion-toolbar>
+    <ion-title>home</ion-title>
+  </ion-toolbar>
+</ion-header>-->
+<ion-content color="warning">
+  <div class="ion-padding ion-text-center">
+    <img src="assets/imgs/logo-morado.png" width="100">
+  </div>
+  <div class="ion-text-center" style="position: relative;">
+    <div style="position: relative;display: inline;">
+
+      <img [src]="image" width="70" (click)="takePhoto()" style="border-radius: 50%;
+      width: 100px;
+      height: 100px;">
+      <ion-icon name="camera" style="font-size: 1.8em;
+      margin-left: -26px;
+      color: #49158c;"></ion-icon>
+    </div>
+
+  </div>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle class="ion-text-center">
+        <div style="display: inline;">
+          <span class="black-color-text">{{auth.user.name}}</span>
+          
+          <span class="grey-color-text" style="display: block;">{{auth.user.email}}</span>
+        </div>
+        <div style="    position: relative;
+            width: 50%;
+        margin: auto;
+        border-radius: 20px;" [ngClass]="{'bg-oro': level.level_id == 3, 'bg-silver': level.level_id == 2, 'bg-bronce': level.level_id == 1, 'bg-no-level': level.level_id == 0, 'bg-elite': level.level_id == 4}">
+          <h4 style="    margin-top: 10px;
+          margin-bottom: 2px;">{{level.level_name}}
+          <ion-icon name="ribbon-outline" style="font-size: 1em;
+          "></ion-icon>
+          </h4>
+        </div>
+        
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <h4 class="ion-text-center">Antiguedad</h4>
+      <h2 class="ion-text-center" style="font-size: 1.5em;
+      font-weight: bold;">{{antiquity}}</h2>
+      <ion-grid class="ion-text-center">
+        <ion-row>
+
+          <ion-col>
+            <span style="display: block;">Calificación</span>
+          </ion-col>
+          <ion-col>
+            <span style="display: block;">Viajes realizados</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+
+          <ion-col size="6">
+            <ion-button fill="clear" size="small" style="font-size: 1.5em;">
+              {{score}} <ion-icon name="star" class="text-yellow"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button fill="clear" size="small" style="font-size: 1.5em;">
+              {{travels}} <ion-icon name="airplane"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <!-- <div class="ion-text-center" style="display: flex;width: 80%;margin: auto;">
+        
+        
+      </div> -->
+
+      <ion-list>
+        <ion-item expand="block" lines="none" routerLink="/tabs/personal-information">
+          <ion-label>Datos Personales</ion-label>
+          <ion-icon slot="end" name="arrow-forward-outline" color="primary"></ion-icon>
+        </ion-item>
+
+        <ion-item lines="none" routerLink="/tabs/vehicle-information">
+          <ion-label>Datos del vehículo</ion-label>
+          <ion-icon slot="end" name="arrow-forward-outline" color="primary"></ion-icon>
+        </ion-item>
+        <ion-item lines="none" routerLink="/tabs/documents">
+          <ion-label>Documentos</ion-label>
+          <ion-icon slot="end" name="arrow-forward-outline" color="primary"></ion-icon>
+        </ion-item>
+        <ion-item lines="none" routerLink="/tabs/change-passwsord">
+          <ion-label>Cambiar contraseña</ion-label>
+          <ion-icon slot="end" name="reload-outline" color="primary"></ion-icon>
+
+        </ion-item>
+        <ion-item lines="none" routerLink="/tabs/liquidation">
+          <ion-label>Liquidación</ion-label>
+          <ion-icon slot="end" name="reload-outline" color="primary"></ion-icon>
+
+        </ion-item>
+        <!-- <ion-item  lines="none" (click)="goToPolicies()">
+          <ion-label>Términos y condiciones</ion-label>
+          <ion-icon name="receipt-outline" slot="end" color="primary"></ion-icon>
+        </ion-item> -->
+        <ion-item lines="none" routerLink="/tabs/about">
+          <ion-label>Acerca de la aplicación</ion-label>
+          <ion-icon name="alert-circle-outline" color="primary"></ion-icon>
+        </ion-item>
+        <ion-item lines="none" (click)="logOut()">
+          <ion-label>Cerrar Sesión</ion-label>
+          <ion-icon slot="end" name="log-out-outline" color="primary"></ion-icon>
+
+        </ion-item>
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>

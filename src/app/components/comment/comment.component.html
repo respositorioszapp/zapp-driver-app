@@ -1,0 +1,24 @@
+<form [formGroup]="comment_data" novalidate style="display:flex">
+  <div style="width: 70%;margin-left: 5px;">
+    <ion-item lines="none" class="input-text ion-margin-top">
+      <ion-input placeholder="Comentario" formControlName="comment" required></ion-input>
+    </ion-item>
+    <ion-item lines="none" class="danger-color-text"
+      *ngIf=" controls.comment.dirty && controls.comment.touched && controls.comment.errors">
+      <ion-icon name="alert-circle" slot="start" class="danger-color-text"></ion-icon>
+      <ion-label *ngIf="controls.comment.errors.required">El comentario es requerido</ion-label>
+    </ion-item>
+
+  </div>
+  <div style="width: 15%;">
+    <ion-button expand="block" mode="ios" color="light" class=" ion-margin-top" (click)="uploadPhoto()">
+      <ion-icon name="images-outline" ></ion-icon>
+    </ion-button>
+  </div>
+  <div style="width: 15%;">
+    <ion-button type="submit" expand="block" mode="ios" color="light" class=" ion-margin-top" (click)="save()">
+      <ion-spinner name="crescent" *ngIf="sending == 'yes'" color="primary"></ion-spinner>
+      <ion-icon name="send-outline" *ngIf="!sending"></ion-icon>
+    </ion-button>
+  </div>
+</form>

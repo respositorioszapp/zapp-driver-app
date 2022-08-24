@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary" style="position: relative;">
+    <ion-title style="position: absolute; left: 5px;bottom:14px">{{detail.address}}
+    </ion-title>
+    <ion-button (click)="dismiss()" style="position: absolute; right: 5px;bottom:5px">
+      <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="warning">
+
+  <ion-card>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <div #map id="map" style="width: 100%;height: 200px;"></div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <p>Duración: {{duration | uppercase}} </p>
+      <p>Distancia: {{distance | uppercase}} </p>
+      <p class="ion-text-center">{{detail.description}}</p>
+      <ng-container *ngIf="detail.status !=25">
+        <ion-button expand="full" fill="outline" color="primary" (click)="registerEvent()">Eventualiad</ion-button>
+        <ion-button expand="full" color="primary" (click)="endDetail()">Finalizar</ion-button>
+      </ng-container>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

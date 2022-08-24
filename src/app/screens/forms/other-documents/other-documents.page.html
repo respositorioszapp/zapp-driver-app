@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="primary" style="position: relative;" mode="ios">
+    <ion-title style="position: absolute; left: 5px;bottom:14px">Otros
+    </ion-title>
+    <ion-button (click)="dismiss()" style="position: absolute; right: 5px;bottom:5px">
+      <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="!img; else elseTemplate">
+    <form [formGroup]="document_information">
+      <ion-item lines="none" class="input-text ion-margin-top">
+        <ion-select placeholder="Tipo de documento" formControlName="document_type" style="display: contents;" required
+          [selectedText]="document.name">
+          <ion-select-option *ngFor="let item of documents" [value]="item.id">{{item.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </form>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <ion-img [src] = "img.url" style="width: 100%;height: 300px;" (click)="getFile()">
+
+    </ion-img>
+  </ng-template>
+
+
+  <ion-button (click)="getFile()" expand="block" mode="ios" color="primary" class="ion-margin-bottom">
+    Subir documento
+  </ion-button>
+</ion-content>

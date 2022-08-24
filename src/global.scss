@@ -1,0 +1,212 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ *//*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+/** Customize*/
+ion-item.input-text{
+    --background:#f2f0f5 !important;
+    --border-width:1px !important;
+    --border-color: #f2f0f5;
+    --border-radius:14px;
+    --highlight-color-focused: none;
+    --min-height: 35px !important;
+}
+
+ion-input{
+    --border-color:transparent !important;
+    --padding-top:5px !important;
+    --padding-bottom:5px !important;
+}
+
+.grey-color{
+    color:#737373 !important;
+}
+
+:root{
+    ---background:#fff;
+}
+
+.svg-yellow{
+
+}
+
+.loading-wrapper.sc-ion-loading-ios{
+    background-color: #f2f0f5 !important;
+}
+
+:host  .icon .ionicon{
+    stroke: yellow;
+}
+
+.svg-yellow .icon-inner svg{
+    fill: yellow !important;
+}
+
+.svg-black{
+    fill: black;
+}
+
+.grey-color-text{
+    color:#737373 !important;
+}
+.danger-color-text{
+    color:#eb445a !important;
+}
+
+.black-color-text{
+    color:#1f1b16 !important;
+}
+
+ion-card.border-radius {
+  border-radius: 14px;
+}
+
+ion-item.danger-color-text ion-label{
+    text-align: left !important;
+    white-space: normal !important;
+}
+
+ion-tabs .tabs-inner ion-router-outlet{
+    background: linear-gradient(0deg, rgba(239,238,244,1) 0%, rgba(152,228,68,1) 87%) !important;
+}
+
+.div_category{
+    background: #49158c;
+    display: block;
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    height: 35px;
+    border-radius: 6px;
+    width: 100%;
+    padding: 5px;
+}
+
+.custom-modal{
+    --background: transparent;
+}
+
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+/** Customize*/
+ion-item.input-text{
+    --background:#f2f0f5 !important;
+    --border-width:1px !important;
+    --border-color: #f2f0f5;
+    --border-radius:14px;
+    --highlight-color-focused: none;
+    --min-height: 35px !important;
+}
+
+ion-input{
+    --border-color:transparent !important;
+    --padding-top:5px !important;
+    --padding-bottom:5px !important;
+}
+
+.grey-color{
+    color:#737373 !important;
+}
+.grey-color-text{
+    color:#737373 !important;
+}
+.danger-color-text{
+    color:#eb445a !important;
+}
+
+.black-color-text{
+    color:#1f1b16 !important;
+}
+
+ion-card.border-radius {
+  border-radius: 14px;
+}
+
+ion-item.danger-color-text ion-label{
+    text-align: left !important;
+    white-space: normal !important;
+}
+
+ion-tabs .tabs-inner ion-router-outlet{
+    background: linear-gradient(0deg, rgba(239,238,244,1) 0%, rgba(152,228,68,1) 87%) !important;
+}
+
+.div_category{
+    background: #49158c;
+    display: block;
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    height: 35px;
+    border-radius: 6px;
+    width: 100%;
+    padding: 5px;
+}
+
+.white-gray-background {
+    background: #f2f2f2;
+    --background: #f2f2f2;
+  }
+
+
+.row{
+    display:flex;
+}
+
+.w-50{
+    width: 50%;
+}
+
+textarea.alert-input.sc-ion-alert-ios {
+    border-radius: 10px !important;
+    padding: 10px !important;
+}

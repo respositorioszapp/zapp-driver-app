@@ -1,0 +1,69 @@
+<div style="display: block;
+position: relative;
+-ms-flex-order: -1;
+order: -1;
+width: 100%;
+z-index: 10;
+background: transparent;">
+  <p class="ion-text-center"><img src="assets/imgs/logo-morado.png" style="width: 150px;
+    height: 50px;
+"></p>
+
+</div>
+<ion-content color="warning" >
+  <ion-refresher slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="loadData()">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-grid style="width: 80%;">
+    <ion-row>
+      <ion-col size="4">
+        <img [src]="image" width="70" style="border-radius: 50%;
+    width: 100px;
+    height: 100px;">
+      </ion-col>
+    <ion-col size="8" >
+      <ion-grid >
+        <ion-row>
+          <ion-col size="12">
+            <ion-card-title class=""><span class="black-color-text">{{user.name | wrapName:17}}</span>
+              <ion-icon name="checkmark-circle"
+                [ngClass]="{'verified': user.verified == 1, 'not-verified' : user.verified == 0 }"></ion-icon>
+            </ion-card-title>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-card-subtitle class="">
+              <span style="font-weight: 900;
+    color: black !important;">{{user.email}}</span>
+            </ion-card-subtitle>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-button mode="ios" color="{{user.available == 1? 'success': user.available == 35?'tertiary':'danger'}}" size="small" (click)="verified()"
+          class="ion-margin-top ion-text-center" style="margin: auto;
+      width: 100%;">
+      <ng-container *ngIf="user.verified == 1; else elseTemplateNodisponible">
+        <span *ngIf="user.available == 1">Disponible</span>
+        <span *ngIf="user.available == 0">No disponible</span>
+        <span *ngIf="user.available == 35">En servicio</span>
+      </ng-container>
+      <ng-template #elseTemplateNodisponible>
+        <span >No disponible</span>
+      </ng-template>
+      
+         
+        </ion-button>
+        </ion-row>
+      </ion-grid>
+    </ion-col>
+    </ion-row>
+  </ion-grid>
+  <app-order-card [orders]="filterOrderNear()" title="Ordenes cerca de ti" [available]="user.available" [spinner]="spinner" near="true" [latLng]="latLng" [otherOrders]="filter()">
+
+  </app-order-card>
+  <app-order-card [orders]="filter()" title="Ordenes activas" [available]="user.available" [spinner]="spinner" near="false" [latLng]="latLng" [otherOrders]="filterOrderNear()">
+
+  </app-order-card>
+  
+</ion-content>
